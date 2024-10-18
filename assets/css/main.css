@@ -2042,7 +2042,7 @@ input, select, textarea {
 			font-weight: 900;
 		}
 
-		.icon.brands:before {
+		.brands:before {
 			font-family: 'Font Awesome 5 Brands';
 		}
 
