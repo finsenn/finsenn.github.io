@@ -12,6 +12,7 @@
 
 html {
     scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -49,7 +50,32 @@ nav.scrolled {
     backdrop-filter: blur(5px);
 }
 
-.nav-links a { margin-left: 2rem; color: var(--text-muted); }
+.nav-links a {
+    margin-left: 2rem;
+    color: var(--text-muted);
+    position: relative; /* Needed for the underline */
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -5px;
+    left: 0;
+    background-color: #111;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #111;
+    opacity: 1; /* Override the global opacity fade */
+}
+
+.nav-links a:hover::after {
+    width: 100%; /* Expands the line */
+}
 
 /* --- 3. HERO SECTION (Front Page) --- */
 header.hero {
@@ -238,6 +264,32 @@ section {
     transition: scale 0.4s ease;
 }
 
+/* This is for your LOGOS (AD, HTB, etc.) so they DON'T zoom/crop */
+.project-img1-slot {
+    width: 100%;
+    height: 250px;
+    background-color: #ffffff; /* White background usually looks better for logos */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    display: flex;           /* Centers the logo */
+    align-items: center;     /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
+    border: 1px solid #eee;  /* Optional: adds a light border */
+}
+
+.project-img1-slot img {
+    width: 80%;              /* Makes the logo slightly smaller than the box */
+    height: 80%;
+    object-fit: contain;     /* THE MAGIC FIX: Fits the whole image inside */
+    transition: transform 0.4s ease;
+}
+
+/* Hover effect for the new slot */
+.project-card:hover .project-img1-slot img {
+    transform: scale(1.05);
+}
+
 .project-card:hover .project-img-slot img { scale: 1.05; }
 
 .p-meta { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -305,4 +357,31 @@ footer {
 .card:hover img, .project-card:hover img {
     transform: scale(1.03);
     transition: transform 0.4s ease;
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #FAFAFA; 
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc; 
+    border-radius: 5px;
+    border: 2px solid #FAFAFA; /* Creates a padding effect */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/* --- INTERACTIVE PILLS --- */
+.hero-sub .pill {
+    transition: all 0.3s ease;
+    cursor: default; /* Shows regular cursor, but still animates */
+}
+.hero-sub .pill:hover {
+    background-color: #111;
+    color: #fff;
+    transform: translateY(-2px);
 }
