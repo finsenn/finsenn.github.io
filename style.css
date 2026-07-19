@@ -152,7 +152,7 @@ section {
 
 .section-header h2 {
     font-family: var(--font-serif);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 400;
 }
 
@@ -257,13 +257,18 @@ section {
 
 .project-card { display: block; }
 
-.project-img-slot {
+.project-img-slot,
+.project-img1-slot {
     width: 100%;
     height: 250px;
-    background-color: #eee;
     border-radius: 8px;
     margin-bottom: 1rem;
     overflow: hidden;
+    border: 1px solid var(--accent-line);
+}
+
+.project-img-slot {
+    background-color: #eee;
 }
 
 .project-img-slot img {
@@ -275,16 +280,10 @@ section {
 
 /* This is for your LOGOS (AD, HTB, etc.) so they DON'T zoom/crop */
 .project-img1-slot {
-    width: 100%;
-    height: 250px;
     background-color: #ffffff; /* White background usually looks better for logos */
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    overflow: hidden;
     display: flex;           /* Centers the logo */
     align-items: center;     /* Centers vertically */
     justify-content: center; /* Centers horizontally */
-    border: 1px solid #eee;  /* Optional: adds a light border */
 }
 
 .project-img1-slot img {
@@ -315,7 +314,7 @@ footer {
 .footer-label { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 1rem; }
 
 .email-btn {
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 4vw, 2rem);
     font-family: var(--font-serif);
     border-bottom: 1px solid #111;
     padding-bottom: 5px;
