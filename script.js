@@ -1,6 +1,30 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
+
     const navbar = document.getElementById("navbar");
+
+    // Dark mode toggle (initial theme already applied by inline head script to avoid flash)
+    const themeToggle = document.getElementById("theme-toggle");
+    const root = document.documentElement;
+
+    function updateToggleLabel() {
+        const isDark = root.getAttribute("data-theme") === "dark";
+        themeToggle.textContent = isDark ? "◑" : "◐";
+        themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    }
+
+    themeToggle.addEventListener("click", () => {
+        const isDark = root.getAttribute("data-theme") === "dark";
+        if (isDark) {
+            root.removeAttribute("data-theme");
+            localStorage.setItem("theme", "light");
+        } else {
+            root.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        }
+        updateToggleLabel();
+    });
+
+    updateToggleLabel();
 
     // Function to handle scroll event
     function handleScroll() {
@@ -15,6 +39,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Listen for scroll events
     window.addEventListener("scroll", handleScroll);
+
+    // Hero entrance: stagger the name, photo, tagline, and scroll cue in on load
+    document.querySelectorAll(".hero-in").forEach((el, i) => {
+        el.style.transitionDelay = `${150 + i * 150}ms`;
+        requestAnimationFrame(() => el.classList.add("is-visible"));
+    });
 
     // Scroll-reveal: fade + rise elements into view as they enter the viewport
     const revealTargets = document.querySelectorAll(
@@ -54,4 +84,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }, { rootMargin: "-40% 0px -50% 0px" });
 
     sections.forEach(section => spyObserver.observe(section));
+
+    // Magnetic hover: subtle tilt/lift toward the cursor on cards
+    const magneticTargets = document.querySelectorAll(".card, .project-card");
+    const MAX_TILT = 6; // degrees
+
+    magneticTargets.forEach(el => {
+        el.addEventListener("mousemove", e => {
+            const rect = el.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            el.style.transform = `perspective(600px) rotateX(${-y * MAX_TILT}deg) rotateY(${x * MAX_TILT}deg) translateY(-4px)`;
+        });
+
+        el.addEventListener("mouseleave", () => {
+            el.style.transform = "";
+        });
+    });
 });

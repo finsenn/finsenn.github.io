@@ -12,6 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function () {
+            var saved = localStorage.getItem("theme");
+            var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (saved === "dark" || (!saved && prefersDark)) {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -21,21 +30,22 @@
             <a href="#work">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
+            <button id="theme-toggle" aria-label="Toggle dark mode" type="button">◐</button>
         </div>
     </nav>
 
     <header class="hero">
-        <h1>Nathanael</h1>
-    
-    <div class="hero-face">
+        <h1 class="hero-in">Nathanael</h1>
+
+    <div class="hero-face hero-in">
         <img src="images/vincrnt.jpeg" alt="Portrait of Nathanael Vincent Hadinoto">
     </div>
-    <h1><em>Vincent</em></h1>
-        <div class="hero-sub">
+    <h1 class="hero-in"><em>Vincent</em></h1>
+        <div class="hero-sub hero-in">
             <p>Security Engineer & Penetration Tester.</p>
             <p>I turn <span class="pill">Vulnerabilities</span> into secure <span class="pill">Infrastructure</span>.</p>
         </div>
-        <div class="scroll-indicator">Scroll for more information ↓</div>
+        <div class="scroll-indicator hero-in">Scroll for more information ↓</div>
     </header>
 
     <main>

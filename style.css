@@ -4,8 +4,25 @@
     --text-main: #111;
     --text-muted: #666;
     --accent-line: #e0e0e0;
+    --card-bg: #fff;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --slot-bg: #eee;
+    --slot-alt-bg: #fff;
     --font-serif: "Playfair Display", Times, serif;
     --font-sans: "Inter", Helvetica, sans-serif;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #0d0d0d;
+    --text-main: #f2f2f2;
+    --text-muted: #999;
+    --accent-line: #2a2a2a;
+    --card-bg: #161616;
+    --nav-bg: rgba(13, 13, 13, 0.9);
+    --slot-bg: #1f1f1f;
+    --slot-alt-bg: #161616;
+    --dot-color: rgba(255, 255, 255, 0.08);
+    --glow-color: rgba(255, 255, 255, 0.05);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,6 +38,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
@@ -44,7 +62,7 @@ nav {
 
 /* Class added by JS when scrolling */
 nav.scrolled {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--nav-bg);
     padding: 1rem 5%; /* Shrinks slightly */
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     backdrop-filter: blur(5px);
@@ -64,12 +82,12 @@ nav.scrolled {
     height: 1px;
     bottom: -5px;
     left: 0;
-    background-color: #111;
+    background-color: var(--text-main);
     transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #111;
+    color: var(--text-main);
     opacity: 1; /* Override the global opacity fade */
 }
 
@@ -78,12 +96,31 @@ nav.scrolled {
 }
 
 .nav-links a.active {
-    color: #111;
+    color: var(--text-main);
     opacity: 1;
 }
 
 .nav-links a.active::after {
     width: 100%;
+}
+
+#theme-toggle {
+    margin-left: 2rem;
+    background: none;
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+#theme-toggle:hover {
+    border-color: var(--text-main);
+    transform: rotate(20deg);
 }
 
 /* --- 3. HERO SECTION (Front Page) --- */
@@ -97,8 +134,8 @@ header.hero {
     text-align: center;
     padding: 6rem 2rem 4rem;
     background-image:
-        radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px),
-        radial-gradient(circle 40vw at 50% 40%, rgba(0,0,0,0.05), transparent 70%);
+        radial-gradient(circle, var(--dot-color, rgba(0,0,0,0.08)) 1px, transparent 1px),
+        radial-gradient(circle 40vw at 50% 40%, var(--glow-color, rgba(0,0,0,0.05)), transparent 70%);
     background-size: 28px 28px, 100% 100%;
     background-position: center, center;
 }
@@ -120,7 +157,7 @@ header.hero {
 }
 
 .hero-sub .pill {
-    border: 1px solid #333;
+    border: 1px solid var(--text-main);
     border-radius: 50px;
     padding: 2px 10px;
     font-size: 0.85rem;
@@ -194,13 +231,13 @@ section {
 
 /* Card Styles */
 .card {
-    background: #fff;
+    background: var(--card-bg);
     border: 1px solid var(--accent-line);
     border-radius: 12px;
     padding: 2rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
@@ -273,7 +310,7 @@ section {
 }
 
 .project-img-slot {
-    background-color: #eee;
+    background-color: var(--slot-bg);
 }
 
 .project-img-slot img {
@@ -285,7 +322,7 @@ section {
 
 /* This is for your LOGOS (AD, HTB, etc.) so they DON'T zoom/crop */
 .project-img1-slot {
-    background-color: #ffffff; /* White background usually looks better for logos */
+    background-color: var(--slot-alt-bg);
     display: flex;           /* Centers the logo */
     align-items: center;     /* Centers vertically */
     justify-content: center; /* Centers horizontally */
@@ -321,12 +358,12 @@ footer {
 .email-btn {
     font-size: clamp(1.4rem, 4vw, 2rem);
     font-family: var(--font-serif);
-    border-bottom: 1px solid #111;
+    border-bottom: 1px solid var(--text-main);
     padding-bottom: 5px;
 }
 
 .socials { margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; font-size: 0.9rem; }
-.copyright { margin-top: 3rem; color: #ccc; font-size: 0.8rem; }
+.copyright { margin-top: 3rem; color: var(--text-muted); font-size: 0.8rem; }
 
 /* Responsive Fixes */
 @media (max-width: 768px) {
@@ -341,9 +378,9 @@ footer {
     height: 280px;         /* Height of the picture */
     margin: 15px auto;     /* Centers it vertically and horizontally */
     border-radius: 120px;  /* This creates the pill/oval shape */
-    border: 1px solid #111;
+    border: 1px solid var(--text-main);
     overflow: hidden;      /* Crops the image to the shape */
-    background-color: #ddd;
+    background-color: var(--slot-bg);
 }
 
 .hero-face img {
@@ -377,15 +414,15 @@ footer {
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: #FAFAFA; 
+    background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
-    background: #ccc; 
+    background: var(--accent-line);
     border-radius: 5px;
-    border: 2px solid #FAFAFA; /* Creates a padding effect */
+    border: 2px solid var(--bg-color); /* Creates a padding effect */
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: var(--text-muted);
 }
 
 /* --- INTERACTIVE PILLS --- */
@@ -394,8 +431,8 @@ footer {
     cursor: default; /* Shows regular cursor, but still animates */
 }
 .hero-sub .pill:hover {
-    background-color: #111;
-    color: #fff;
+    background-color: var(--text-main);
+    color: var(--bg-color);
     transform: translateY(-2px);
 }
 
@@ -413,6 +450,26 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
     .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* --- HERO ENTRANCE --- */
+.hero-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.hero-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-in {
         opacity: 1;
         transform: none;
         transition: none;
