@@ -77,6 +77,15 @@ nav.scrolled {
     width: 100%; /* Expands the line */
 }
 
+.nav-links a.active {
+    color: #111;
+    opacity: 1;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
 /* --- 3. HERO SECTION (Front Page) --- */
 header.hero {
     min-height: 100vh;
@@ -384,4 +393,24 @@ footer {
     background-color: #111;
     color: #fff;
     transform: translateY(-2px);
+}
+
+/* --- SCROLL-REVEAL --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
