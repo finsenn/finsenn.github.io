@@ -79,13 +79,14 @@ nav.scrolled {
 
 /* --- 3. HERO SECTION (Front Page) --- */
 header.hero {
-    height: 100vh;
+    min-height: 100vh;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 2rem;
+    padding: 6rem 2rem 4rem;
 }
 
 .hero h1 {
