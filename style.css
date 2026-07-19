@@ -373,14 +373,97 @@ footer {
     .cert-card { flex-direction: column; text-align: left; align-items: flex-start; gap: 1rem;}
 }
 /* --- HERO FACE STYLES --- */
+.scan-frame {
+    position: relative;
+    width: 220px;
+    margin: 15px auto;
+}
+
 .hero-face {
     width: 220px;          /* Width of the picture */
     height: 280px;         /* Height of the picture */
-    margin: 15px auto;     /* Centers it vertically and horizontally */
+    margin: 0 auto;
     border-radius: 120px;  /* This creates the pill/oval shape */
     border: 1px solid var(--text-main);
     overflow: hidden;      /* Crops the image to the shape */
     background-color: var(--slot-bg);
+    position: relative;
+    transition: box-shadow 0.4s ease;
+}
+
+.scan-frame:hover .hero-face {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35), 0 0 24px rgba(59, 130, 246, 0.35);
+    animation: scan-glow-cycle 2.4s ease-in-out infinite;
+}
+
+@keyframes scan-glow-cycle {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 0 24px rgba(59, 130, 246, 0.4); }
+    50% { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 0 24px rgba(239, 68, 68, 0.4); }
+}
+
+.scan-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.9), transparent);
+    top: -10%;
+    opacity: 0;
+}
+
+.scan-frame:hover .scan-line {
+    opacity: 1;
+    animation: scan-sweep 1.6s linear infinite;
+}
+
+@keyframes scan-sweep {
+    0% { top: -5%; }
+    50% { top: 100%; }
+    50.01% { top: -5%; }
+    100% { top: -5%; }
+}
+
+.scan-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(59, 130, 246, 0.9);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.scan-frame:hover .scan-corner {
+    opacity: 1;
+}
+
+.scan-corner-tl { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+.scan-corner-tr { top: -6px; right: -6px; border-left: none; border-bottom: none; }
+.scan-corner-bl { bottom: -6px; left: -6px; border-right: none; border-top: none; }
+.scan-corner-br { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+
+.scan-label {
+    position: absolute;
+    bottom: -1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    color: rgba(59, 130, 246, 0.9);
+    font-family: var(--font-sans);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.scan-frame:hover .scan-label {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scan-frame:hover .hero-face,
+    .scan-frame:hover .scan-line {
+        animation: none;
+    }
 }
 
 .hero-face img {
@@ -392,6 +475,9 @@ footer {
 
 /* Optional: Make it smaller on mobile phones */
 @media (max-width: 768px) {
+    .scan-frame {
+        width: 160px;
+    }
     .hero-face {
         width: 160px;
         height: 200px;

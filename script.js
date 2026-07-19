@@ -85,6 +85,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     sections.forEach(section => spyObserver.observe(section));
 
+    // Easter egg: a little something for anyone curious enough to open DevTools
+    console.log(
+        "%c" +
+        " __      ___                     _   \n" +
+        " \\ \\    / (_)                   | |  \n" +
+        "  \\ \\  / / _ _ __   ___ ___ _ __ | |_ \n" +
+        "   \\ \\/ / | | '_ \\ / __/ _ \\ '_ \\| __|\n" +
+        "    \\  /  | | | | | (_|  __/ | | | |_ \n" +
+        "     \\/   |_|_| |_|\\___\\___|_| |_|\\__|\n",
+        "color: #3b82f6; font-family: monospace; font-size: 10px;"
+    );
+    console.log(
+        "%cLooks like you're the curious type.",
+        "color: inherit; font-size: 14px; font-weight: bold;"
+    );
+    console.log(
+        "%cSince you're already in DevTools poking around — I'm a security engineer & pentester. " +
+        "If you found something on this site that shouldn't be here, I'd genuinely love to hear about it: vincentn113@gmail.com",
+        "color: #888; font-size: 12px;"
+    );
+
     // Magnetic hover: subtle tilt/lift toward the cursor on cards
     const magneticTargets = document.querySelectorAll(".card, .project-card");
     const MAX_TILT = 6; // degrees
